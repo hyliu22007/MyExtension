@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+
+<!--
+
+Copyright 2008-2010 Xmarks Inc.
+
+foxmarks-login.xul: implements UI for Account Manager interactions.
+
+-->
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
+
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" 
+        id="foxmarks-login-window" 
+        windowtype="foxmarks:login" 
+        style="background-color: #EEE; -moz-appearance: none; 
+            overflow: hidden;"
+        width="298" height="350" title="login.title;"
+        onload="OnLoad()"
+        onunload="OnUnload()" >
+<script type="application/x-javascript"
+    src="chrome://myExtension/content/myExtension.js" />
+
+    <deck id="login-deck" flex="1" height="350" width="298" 
+            style="padding: 9px; overflow: hidden;">
+        <vbox width="298">
+            <hbox style="margin: 4px 4px 10px 4px;"> 
+                <image src="chrome://myExtension/skin/icon.png"
+                    width="25" height="25" />
+                <label style="font-size: 150%; font-weight: bold;">
+                    User Login
+                </label>
+             </hbox>
+            <hbox align="center" pack="end">               
+                <label>Username</label>
+                <textbox id="username" maxlength="11"/>
+            </hbox>
+            <hbox align="center" pack="end">               
+                <label>Password</label>
+                <textbox id="password" type="password" maxlength="11"/>
+            </hbox>
+            <hbox>
+            	<button label='Login' oncommand="login(); " />
+            </hbox>
+        </vbox>
+            
+    </deck>
+</window>

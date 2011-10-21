@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+<?xml-stylesheet href="chrome://myExtension/skin/myExtension.css" type="text/css"?>
+
+<!DOCTYPE window SYSTEM "chrome://myExtension/locale/myExtension.dtd">
+
+<overlay id="singleItemEx"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+         
+<script type="application/x-javascript"
+    src="chrome://myExtension/content/util.js" />
+<script type="application/x-javascript"
+    src="chrome://myExtension/content/myExtension.js" />
+
+<menubar id="main-menubar">
+  <menu id="xulschoolhello-hello-menu" label="ssss"
+    insertafter="helpMenu">
+    <menupopup>
+      <menuitem id="xulschoolhello-hello-menu-item"
+        label="hello"
+        oncommand="say();"
+	/>
+	<menuitem type="radio" name="xulschoolhello-greeting-radio"
+    label="radio" />
+    </menupopup>
+  </menu>
+</menubar>
+<menupopup id="menu_ToolsPopup">
+  <menu id="xulschoolhello-hello-menu22" label="ye"
+    insertafter="javascriptConsole,devToolsSeparator">
+    <menupopup>
+      <!-- Your menuitem goes here. -->
+      <menuitem type="radio" name="xulschoolhello-greeting-radio1"
+    label="radio1" />
+    <menuitem type="radio" name="xulschoolhello-greeting-radio2"
+    label="radio2" />
+    </menupopup>
+  </menu>
+</menupopup> 
+<toolbarpalette id="BrowserToolbarPalette">
+  <toolbarbutton id="toolbarpalette-button" 
+                 class="toolbarbutton-class"
+                 label="mylabel;"
+                 tooltiptext="mytiptext;"
+                 oncommand="somefunction()"/>
+</toolbarpalette>
+ <toolbarpalette id="BrowserToolbarPalette">
+ <toolbarbutton id="hcardformfiller-toolbar-button-grab"
+ 		image="skin/icon.png"
+ 		label="hcardformfillerToolbar.grabLabel;"
+ 		tooltiptext="hcardformfillerToolbar.grabTooltip;"
+ 		oncommand="hcardformfiller.onToolbarButtonGrabCommand()"
+ 		class="toolbarbutton-1 chromeclass-toolbar-additional"/>
+ <toolbarbutton id="hcardformfiller-toolbar-button-paste"
+ 		image="skin/icon.png"
+ 		label="hcardformfillerToolbar.pasteLabel;"
+ 		tooltiptext="hcardformfillerToolbar.pasteTooltip;"
+ 		oncommand="hcardformfiller.onToolbarButtonPasteCommand()"
+ 		class="toolbarbutton-1 chromeclass-toolbar-additional"/>
+ </toolbarpalette>
+<toolbarpalette id="BrowserToolbarPalette">
+		<toolbarbutton id="xulschoolhello-hello-world-button" type="menu-button" 
+			class="toolbarbutton-1 chromeclass-toolbar-additional"
+			label="label" tooltiptext="tooltip;"
+			>
+			<menupopup>
+				<menuitem label="mainbuttonpopup.action;" tooltiptext="mainbutton.tooltip;"
+					
+					id="MorningCoffee-LoadUp"/>
+				
+				<menuitem label="pageload" tooltiptext="mainbuttonpopup.configureTT;"
+					
+					id="MorningCoffee-Configure"
+					oncommand="PageLoad.init() "
+					/>
+				
+				<menuseparator />
+				
+				<menuitem label="login" tooltiltext="登陆"
+					oncommand="toLogin(); "
+					id="login"/>
+			</menupopup>
+		</toolbarbutton>
+	</toolbarpalette>
+<window id="main-window">
+  <toolbox id="navigator-toolbox">
+    <toolbar id="xulschoolhello-toolbar" toolbarname="toolbarName"
+      customizable="true" mode="icons" context="toolbar-context-menu" 
+      defaultset="xulschoolhello-hello-world-button,hcardformfiller-toolbar-button-paste"
+      insertbefore="PersonalToolbar" />
+  </toolbox>
+</window>
+
+
+</overlay>
+

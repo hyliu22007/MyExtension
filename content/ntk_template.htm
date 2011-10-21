@@ -1,0 +1,266 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Language" content="en-us" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>&nbsp;</title>
+	<link rel="shortcut icon" href="logos/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="newtabking-min.css" />
+	<!--<link rel="stylesheet" type="text/css" href="themes/background.css" />-->
+</head>
+<body id="ntkBody">
+<script>
+	var ms = Components.classes["@mozilla.org/intl/stringbundle;1"].getService(Components.interfaces.nsIStringBundleService).createBundle("chrome://newtabking/locale/newtabking.properties");
+	function writeRes(key)	{
+		document.write(ms.GetStringFromName(key));	
+	}	
+	function loadcssfile(filename){
+		var fileref=document.createElement("link");
+		fileref.setAttribute("rel", "stylesheet");
+		fileref.setAttribute("type", "text/css");
+		fileref.setAttribute("href", filename);
+		if (typeof fileref!="undefined")  document.getElementsByTagName("head")[0].appendChild(fileref);
+	}
+
+</script>
+
+<div id="background">
+<div id="mainContainer"  align="center" >
+<table style="margin:0 auto;width:95%;" cellspacing="0" align="center">
+<tr>
+<td valign="top" style="padding:10px 0 0 10px;margin-bottom:0">
+	<div id="mainStuff">
+	<div style="float:right;padding-right:20px"><a href="javascript:showOptions()"><img onmouseout="this.src='images/settings.png'" onmouseover="this.src='images/settings_hover.png'" src="images/settings.png" title="Configure options" style="vertical-align:middle;border:0"/></a></div>
+		<div id="box" class="box3styleSTUB" align="center">
+			<table id="headerBox"  width="100%" cellpadding="0" cellspacing="0" style="padding-left:10px;height:40px">
+				<tr >
+					<td  valign="top" align="left">		
+						<h3   style="font-size:27px;font-weight:normal;padding:0px;margin:0px">
+						<table>
+							<tr>
+								<td class="topLogo"><a href="http://www.newtabking.com/share.php" title="Share with a friend or two!"><!--<img border="0" alt="newtabking" src="ntkExt.png" style=" vertical-align:bottom" />--></a>&nbsp;</td>
+								<td><span  id="editStuff" class="editText"></span>						</td>
+							</tr>
+						</table>			
+
+						</h3>						
+					</td>
+					<td valign="bottom" align="right" style="padding-right:10px">
+					<div class="poweredBy"></div></td>
+				</tr>
+			</table>
+			
+			SEARCHFORMSTUBISHERE					
+		</div>
+	<!--	<td style=" margin-top:0; padding:0 0px 10px 0;width:100%" align="right" valign="top">-->
+ 	  <div id="box3wrapper" class="box3wrapperstyleStub">
+		<div id="box3" style="height:box3heightpx">
+			<h3 align="left"  class="mainSectionTitle"><span id="mostusedsites"><script>writeRes("mostUsedWebsites");</script></span><span id="latestposts" style="display:none"><script>writeRes("latestNews");</script> &nbsp;&nbsp;<img style="vertical-align:middle;width:12px;cursor:pointer" id="timezone_rss" title="Refresh" onclick="refreshRSS()" src="images/thumb_refresh.png"/><img id="timezone_rss_progress" src="images/progress.gif" style="display:none"/></span>
+			<span id="topTime" style="margin-top:-40px; margin-left:10px">
+				<a id="timeview0"  class="timezone" href="javascript:showTime('Ever')"><script>writeRes("ever");</script></a><a id="timeview1"  class="timezone" href="javascript:showTime('Month')"><script>writeRes("month");</script></a><a id="timeview2"  class="timezone" href="javascript:showTime('Week')"><script>writeRes("week");</script></a>
+			</span></h3>
+			<span id="topMode" style="float:right;margin-top:-18px; margin-right:10px">
+				<a id="timezone0" title="Most used sites histogram" class="timezoneSelected" href="javascript:showView('Classic')"><script>writeRes("classic");</script></a><a id="timezone1" title="Thumbnails" class="timezone" href="javascript:showView('Thumbnails')"><script>writeRes("thumbnails");</script></a><a id="timezone2" title="RSS" class="timezone" href="javascript:showView('RSS')">RSS</a><a id="timezone3" title="Analytics" class="timezone" style="display:none" href="javascript:showView(2)"><script>writeRes("analytics");</script></a>				
+			</span>			 
+
+			<div style="text-align:left"  id="mainContent" >getMainContent</div>	
+		</div>
+	  </div>	
+	  <table id="botTbl" class="botTblstyleStub" style="margin-left:0px;padding-bottom:5px;height:20px" >      <!--style=" display:none; margin-left:10px; border-left:#f0f0f0 20px solid; background:#f0f0f0; height:50px;opacity:1;-moz-border-radius:0 0 5px 5px; "-->
+		<tr>
+			<td  align="left">			
+			<!--
+				<img src="images/bookmarks.png" style=" vertical-align:middle;padding-bottom:2px; border:0;z-index:99" alt="Blocked list"/>
+				<span style="font-size:x-small;vertical-align:middle"> Showing: </span> <span id="switchBookmarksOnlyID"></span>
+			-->
+			<!-- Background setting START-->
+			<div id="changeBackgroundDiv" style="height:5px;cursor:default;margin:0 8px;position:relative">
+				<div id="changeBackground" style="bottom:0;position:absolute;height:0">
+				<table ><tr>
+							<td valign="middle">
+									<table id="sharing" cellpadding="0" cellspacing="0"  style="margin-left:-5px;display:none">								
+										<tr>
+											<td style="padding-top:3px"></td>
+											<td class="shareArea2" style="cursor:default;display:none">
+												<a title="Share on Facebook" href="#" onclick="makeMyTab('fb');"><img class="shareBtn" src="images/facebook-btn.png" alt="Facebook"/></a>
+												<img src="images/progress2.gif"  id="sharing_progress" style="display:none;border:0;padding-bottom:2px"/>					
+											</td>
+										</tr>
+									</table>
+							</td>								
+							<td  valign="middle">&nbsp;&nbsp;</td>														
+							<td valign="middle"><span class="mainSectionTitle" style="font-size:11px"><!--Zoom: --><a href="javascript:zoom(1)" title="Zoom in"><img src="images/zoomin.png" style="vertical-align:middle;border:0"/></a>&nbsp;<a href="javascript:zoom(-1)" title="Zoom out"><img src="images/zoomout.png" style="vertical-align:middle;border:0"/></a></span></td>					
+							<td  valign="middle">&nbsp;&nbsp;</td>														
+
+							<td valign="middle">
+								<table id="themes" align="left" cellpadding="0" cellspacing="0"  style="width:100%">			
+									<tr>
+										<td style="padding-top:0px"><span class="setHead" style="font-size:11px">&nbsp;&nbsp;&nbsp;<!--<script>writeRes("theme");</script>:--></span></td>
+											<td>
+											<span style=" width:158px;padding-right:0px">
+											<span id="theme-1" class="themeBtn theme1" onclick="setTheme(1)" title="Smoke">&nbsp;</span>
+											<span id="theme-2" class="themeBtn theme2" onclick="setTheme(2)" title="Whitey">&nbsp;</span>
+											<span id="theme-3" class="themeBtn theme3" onclick="setTheme(3)" title="Brown">&nbsp;</span>
+											<span id="theme-4" class="themeBtn theme4" onclick="setTheme(4)" title="Bubbles">&nbsp;</span>
+											<span id="theme-5" class="themeBtn theme5" onclick="setTheme(5)" title="Clean">&nbsp;</span>
+											<span id="theme-6" class="themeBtn theme6" onclick="setTheme(6)" title="Gray red">&nbsp;</span>
+											<span id="theme-7" class="themeBtn theme7" onclick="setTheme(7)" title="Water">&nbsp;</span> 
+											</span>
+										</td>			
+									</tr>
+								</table>
+							</td>							
+							<td  valign="middle">&nbsp;&nbsp;</td>																					
+							<td valign="middle"><span class="customizeBackground" onclick="javascript:showOptions()"><script>writeRes("changeBackgroundImage");</script></span>
+							<span id="rssControl1" valign="middle" style="display:none;" >&nbsp;&nbsp; <img title="Getting background images..." id="progress-id" src="images/progress.gif" style="vertical-align:middle;border:0"/> &nbsp; </span>
+							<span id="rssControl2"  valign="middle" style="display:none;">
+								<a href="javascript:rssBackgroundPlay(-1)" id="ntk_move_back" title="Rotate background images backwards"><img src="images/back.png" style="vertical-align:middle;border:0"/></a> 
+								<a href="javascript:rssBackgroundPlay(1)" id="ntk_move_fwd" title="Rotate background images forward"><img src="images/play.png" style="vertical-align:middle;border:0"/></a>
+								<a href="javascript:rssBackgroundPlay(0)" title="Keep current background image"><img id="pin-icon-id" src="images/pin.png" style="vertical-align:middle;border:0"/></a>
+							</span>
+							<span id="rssControl3" title="Error" style="display:none"  valign="middle" ><a href="javascript:showOptions()" ><img id="progress-fail-id" src="images/restart.png" style="vertical-align:middle;border:0"/></a></span>
+							</td>
+
+							</tr>
+						</table>
+				</div>
+			</div>
+			<!-- Background setting END -->
+
+			</td>
+		</tr>			
+	  </table>
+	
+	</div>
+</td>
+<td style="background-color:transparent;padding-right:3px"></td>
+<td valign="top" rowspan="2">
+	
+	<div align="left" SIDEBOXSTYLESTUB   id="sidebox">
+		<div id="notepadDiv">
+			<table width="95%" style="padding-right:10px"><tr><td><h4 style=" text-align:left;padding:0 10px 2px 13px;margin:0 0 0 0"><script>writeRes("todoList");</script></h4></td> <td align=right><img id="expCol4" src="images/collapse.png" style="cursor:pointer" title="Expand/Collapse" onclick="expandCollapse(this,'notepadTxtId');" /></td></tr></table>
+			<textarea class="notepad" onkeyup="setTimeout(doNotepad,400);" id="notepadTxtId" ></textarea>
+		</div>		
+		<div id="recentTabsStub"></div>
+		getUsefulWebApps
+		getUsefulApps
+		<div id="suggestSitesStub"></div>
+		<table id="sharing"  cellpadding="0" cellspacing="0"  style=" display:none; text-align:left;padding-left:20px; padding-right:10px">
+			<tr><td align="center"	 colspan="3">
+			<!--<hr />--><br/></td></tr>
+			<tr>
+				<td style="padding-top:3px"></td>
+				<td class="shareArea2" style="cursor:default">
+					<a title="Share on Twitter" href="#" onclick="makeMyTab('tw');"><img alt="Twitter" class="shareBtn"  src="images/tweet.png"/></a>
+					<a title="Share on Facebook" href="#" onclick="makeMyTab('fb');"><img class="shareBtn" src="images/facebook-btn.png" alt="Facebook"/></a>
+					<img src="images/progress2.gif"  id="sharing_progress" style="display:none;border:0;padding-bottom:2px"/>
+<!--				<a title="Send an email to your friends" href="mailto:?subject=Forget about the blank new tab with New Tab King&Body=I found this cool Firefox add-on and thought you might be interested.  It basically transforms your blank new tab into a personalized launch-pad.  Check it out at http://www.newtabking.com"><img class="shareBtn"  src="images/email.gif" alt="email"/></a>	-->										
+				</td>
+				<!--<td onclick="showSharing2();" title="Share your most used sites..." class="shareArea">
+				 <img src="images/facebook.gif" class="shareBtn"/>
+ 				 <img src="images/twitter.gif"  class="shareBtn"/>
+				 <img src="images/myspace.gif"  class="shareBtn"/>
+ 				 <img src="images/email.gif"  class="shareBtn"/>
+				 <img src="images/digg.gif"  class="shareBtn"/>
+				 <img src="images/stumble.gif"  class="shareBtn"/>
+				 <img src="images/delicious.gif"  class="shareBtn"/>
+				</td>-->
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+	</div>			
+</td>
+<td valign="top" rowspan="2">
+	<div align="center" id="sidebox-collapse" onclick="sidebarShow(true)" style="cursor:pointer" title="Expand or collapse sidebar">
+		<h3 style=" text-align:center; margin:2px 0 0 0; padding: 0pt 0pt 0pt 0px;"><img id="sideboxImg" src="images/expand-right.png" style="cursor:pointer;vertical-align:baseline" title="Expand or collapse sidebar"/></h3>
+	</div>
+</td>
+</tr>
+		
+</table>
+
+	<table style="padding:0 0 0 0;margin:0 0 0 0; width:95%">
+		<tr><td style="padding:10px 10px 10px 10px;width:80%" align="right" valign="top">
+			<div style="padding:10px 10px 10px 10px;width:450px;height:300px;vertical-align:top;display:none;text-align:left" id="drilldown"></div>
+		</td></tr>
+	</table>
+
+</div>
+
+
+
+
+
+<script type="text/javascript" src="newtabking-pre-min.js"></script>	
+
+<script type="text/javascript">
+		loadcssfile("themes/newtabking-theme-"+NTK.prefs.getIntPref("ntkTheme")+".css"); ////dynamically load and add this .css file	
+		loadcssfile("themes/background.css");		
+		document.title = NTK.prefs.getComplexValue("tabTitleStr", Components.interfaces.nsISupportsString).data;
+		document.getElementById('editStuff').innerHTML = NTK.prefs.getComplexValue("titleStr", Components.interfaces.nsISupportsString).data;
+
+		NTK.window = window;
+		NTK.document = document;
+		NTK.DOMParser = new DOMParser;
+		NTK.globalAutoSearchInProgress = 0;
+	
+		var GRI, GRI2, GRI0 ='', totalAccessCount;
+		var numMostUsedSites;
+		var globalArrowsUsed, formVars, changing; 
+	
+		globalArrowsUsed = false;
+		formVars = "";
+		changing = false;
+</script>
+<script type="text/javascript" src="lightbox.js"></script>			
+
+<script type="text/javascript" src="wunderbar-min.js"></script>
+<script type="text/javascript">
+	ntkOnload(false);
+	addEvent(window, "load", editbox_init);
+	Lightbox.init({	});
+
+	var w = new Wunderbar("q", function() {
+		return "autocompleteres.htm";
+	});
+
+</script>
+<!--<script type="text/javascript" src="newtabking-post-min.js"></script>	-->
+
+
+<div id="shareDivID1" style="display:none;">
+	<div class="shareHeader" >Follow 3 simple steps to publish your most used sites online and share them. First, select the sites to be shared and click Next:</div> 
+	<div class="shareSites" id="optionalSharingID"></div>
+	<div style="padding:10px"><input type="button" class="shareButton"  value="Next &raquo;" onclick="showSharing2()"/></div> 	
+</div>
+<div id="shareDivID2" style="display:none;">
+	<div class="shareHeader" >Want to share your beautiful new tab with your friends?  select your username and hit submit to create an online snapshot of your new tab.<br/><br/></div> 
+	<div class="shareHeader">Choose a username:<br/>
+		<input type="text" name="usernameUn" onkeypress="return ValidateTextBox(event);" onkeyup="sharingUserAvail(this.value)" id="usernameU"/>
+			&nbsp;<uURLIndi></uURLIndi></div>
+	<div class="shareSmall">This will set a permanenet and public URL at: http://www.newtabking.com/share/[username]</div>
+	<div class="shareHeader">Enter your email (optional): <br/>
+			<input type="text" onkeyup="sharingUserEmail(this.value)"  id="userEmail"  size="32"/></div>
+	<div class="shareSmall">This will allow you to manage your online most used sites page.  We respect your privacy and do not tolerate spam and will never sell, rent, lease or give away your details to any 3rd party</div>
+	<div style="padding:10px;">
+		<input type="button" id="submitShareBtn" class="shareButton"  value="Submit &raquo;" onclick="showSharing3()"/>
+		<sharingProgress id="sharingProgress" style="display:none"><img src="images/progress2.gif"/></sharingProgress>
+	</div>
+</div>	
+<div id="shareDivID3" style="display:none;">
+	<div class="shareHeader">Voila!  The online version of your most used sites is ready at: <urlEmdX></urlEmdX><br/><br/>Share your most used sites with these web services:</div>
+	<div style="padding-left:10px;">
+		<a href="Javascript:share(0)" title="Facebook" ><img src="images/facebook-share.png"/></a> &nbsp; 
+		<a href="Javascript:share(1)" title="Twitter" ><img src="images/twitter-share.png"/></a> &nbsp; 
+		<a href="Javascript:share(2)" title="Mail" ><img src="images/mail-share.png"/></a> &nbsp; 
+		<a href="Javascript:share(3)" title="Digg" ><img src="images/digg-share.png"/></a> &nbsp; 
+		<a href="Javascript:share(4)" title="StumbleUpon" ><img src="images/stumbleupon-share.png"/></a> &nbsp; 
+		<a href="Javascript:share(5)" title="Delicious" ><img src="images/delicious-share.png"/></a> &nbsp; 
+		<a href="Javascript:share(6)" title="Myspace" ><img src="images/myspace-share.png"/></a> &nbsp; 
+	</div>
+	<div class="shareHeader" style="padding-bottom:0px"><br/>Or embed in your webpage by copying &amp; pasting this code:</div>
+	<div style="padding:5px 10px 10px 10px;width:96%"><textarea readonly="readonly" rows="1" style="width:98%; height:14px; font-size:x-small" id="urlEmbed"></textarea></div>
+</div>
+</div>
+</body>
+</html>

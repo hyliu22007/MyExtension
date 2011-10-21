@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+<?xml-stylesheet href="chrome://myExtension/skin/myExtension.css" type="text/css"?>
+
+<!DOCTYPE window SYSTEM "chrome://myExtension/locale/myExtension.dtd">
+
+<overlay id="singleItemEx"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<menubar id="main-menubar">
+  <menu id="xulschoolhello-hello-menu" label="ss"
+    insertafter="helpMenu">
+    <menupopup>
+      <menuitem id="xulschoolhello-hello-menu-item"
+        label="hello"
+	/>
+    </menupopup>
+  </menu>
+</menubar>
+</overlay>
+

@@ -1,0 +1,12 @@
+/* TODO */
+#xulschoolhello-hello-world-button {
+  list-style-image: url("chrome://myExtension/skin/icon.png");
+}
+#MorningCoffee-button {
+	list-style-image: url("chrome://myExtension/skin/icon.png");
+	-moz-image-region: rect(0px 24px 24px 0px);
+}
+#Toolbarpalette-button {
+	list-style-image: url("chrome://myExtension/skin/icon.png");
+	-moz-image-region: rect(0px 24px 24px 0px);
+}
