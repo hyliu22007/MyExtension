@@ -1,9 +1,6 @@
 
 function toLogin(){
-	var newTabBrowser = gBrowser.getBrowserForTab(gBrowser.addTab("chrome://myExtension/content/newtabking2.htm"));
-	newTabBrowser.addEventListener("load", function () {
-	  newTabBrowser.contentDocument.body.innerHTML = "<div>hello world</div>";
-	}, true);
+	
 	window.open(
 			"chrome://myExtension/content/login.xul",
 			"MorningCoffeeAboutDialog",

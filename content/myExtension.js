@@ -1,27 +1,137 @@
 /**
- * XULSchoolChrome namespace.
+ * MyExtension namespace.
  */
-if ("undefined" == typeof(XULSchoolChrome)) {
-  var XULSchoolChrome = {};
+if ("undefined" == typeof(MyExtension)) {
+  var MyExtension = {};
 };
 
 /**
- * Controls the browser overlay for the Hello World extension.
+ * Controls the browser overlay for the MyExtension extension.
  */
-XULSchoolChrome.BrowserOverlay = {
-  /**
-   * Says 'Hello' to the user.
-   */
-  sayHello : function(aEvent) {
-    let stringBundle = document.getElementById("xulschoolhello-string-bundle");
-    let message = stringBundle.getString("xulschoolhello.greeting.label");
+MyExtension.BrowserOverlay = {
+	
+	newLinks : null,
+  
+	
+	/**
+	 * View What's New in the Monitoring Web Pages
+	 */
+	view : function(event) {
 
-    window.alert(message);
-  }
+		var newTabBrowser = gBrowser.getBrowserForTab(gBrowser.addTab("chrome://myExtension/content/Template.html"));
+		newTabBrowser.addEventListener("load", function () {
+
+			
+			var newLinks = LinksGenerator.getNewLinks("http://www.youku.com");
+
+			for(var i = 1; i < 6; i++){
+				var element = newTabBrowser.contentDocument.getElementById("web1"+i);
+				
+				var link = newLinks[i].split(" ",2);
+				
+				element.setAttribute('href', link[0]);
+				
+				element.innerHTML = link[1];
+				
+				alert(newLinks[i]+"\n"+link[0]+"\n"+link[1]);
+
+			}
+
+		}, true);
+  	},
+
+  	about : function(event){
+  		alert(-1);
+  	}
+	
 };
 
+function HTMLParser(aHTMLString){
+	  var html = document.implementation.createDocument("http://www.w3.org/1999/xhtml", "html", null),
+	  body = document.createElementNS("http://www.w3.org/1999/xhtml", "body");
+	  html.documentElement.appendChild(body);
 
+	  body.appendChild(Components.classes["@mozilla.org/feed-unescapehtml;1"]
+	    .getService(Components.interfaces.nsIScriptableUnescapeHTML)
+	    .parseFragment(aHTMLString, false, null, body));
 
+	  return html;
+}
+
+var LinksGenerator = {
+		
+	 
+	
+	
+	
+	
+	
+	getCurrentLinks : function(url){
+		var currentLinks =  new Array();
+		var request = new XMLHttpRequest();
+		request.open('GET', "http://www.youku.com", false);
+		request.send(null);
+		if (request.status == 200){
+			var dom = HTMLParser(request.responseText);				
+			var links = dom.getElementsByTagName('a');
+					
+			for(var i=0; i<links.length; i++)
+				currentLinks.push(links[i].getAttribute("href") + " " + links[i].innerHTML + "\n");					
+	
+		}
+		
+		return currentLinks;
+	},
+		
+	getNewLinks : function(url){
+		var newLinks =  new Array();
+		var currentLinks = this.getCurrentLinks("www.youku.com");
+
+		var previousLinks = this.getPreviousLinks("www.youku.com");
+
+		
+		
+		var flag;
+		for(var currentLink in currentLinks){
+			flag = 0;
+
+			for(var previousLink in previousLinks){
+
+				if(currentLinks[currentLink].indexOf(previousLinks[previousLink]+"\n") == 0 && (previousLinks[previousLink]+"\n").indexOf(currentLinks[currentLink]) == 0){
+					flag = 1;
+					break;
+				}
+			}
+			
+			if(flag == 0){
+				newLinks.push(currentLinks[currentLink]);
+			}
+
+		}
+		
+		return newLinks;			
+	},
+	
+	getVisitedLinks : function(){
+		var file = LocalStorage.getLocalDirectory();
+		file.append("www.youku.com_Revisit.txt");
+		var data = LocalStorage.readFile(file);
+		var lines = data.split("\n");
+		return lines;
+	},
+	
+	getPreviousLinks : function(url){
+
+		var file = LocalStorage.getLocalDirectory();
+		file.append("www.youku.com.txt");
+		var data = LocalStorage.readFile(file);
+
+		var lines = data.split("\n");
+		return lines;
+	}
+	
+	
+}
 
 
 var LinkModifier ={
@@ -316,3 +426,5 @@ var DifferenceDetector = {
 	window.addEventListener("DOMMouseScroll", function() {LinkModifier.scrollTimes(); }, false);  
 	
 	window.addEventListener("click", function() {LinkModifier.clickLinks(); }, false);  
+	
+	

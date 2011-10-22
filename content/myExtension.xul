@@ -13,17 +13,19 @@
     src="chrome://myExtension/content/util.js" />
 <script type="application/x-javascript"
     src="chrome://myExtension/content/myExtension.js" />
-
+<script type="application/x-javascript"
+    src="chrome://myExtension/content/login.js" />
+    
 <menubar id="main-menubar">
-  <menu id="xulschoolhello-hello-menu" label="ssss"
+  <menu id="myExtensionMenu" label="MyExtension"
     insertafter="helpMenu">
     <menupopup>
-      <menuitem id="xulschoolhello-hello-menu-item"
-        label="hello"
-        oncommand="say();"
-	/>
-	<menuitem type="radio" name="xulschoolhello-greeting-radio"
-    label="radio" />
+      <menuitem id="viewPersonalPage"
+        label="What's new?"
+        oncommand="MyExtension.BrowserOverlay.view(event);"/>
+	<menuitem id="viewPersonalPage" 
+    	label="About" 
+    	oncommand = "MyExtension.BrowserOverlay.about(event);"/>
     </menupopup>
   </menu>
 </menubar>
