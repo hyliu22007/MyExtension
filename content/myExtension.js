@@ -52,8 +52,17 @@ var LinkModifier ={
 			file.append("www.youku.com1.txt");
 			var data = LocalStorage.readFile(file);
 			var lines = data.split("\n");
+			//alert(data);
+			var fileRevisited = LocalStorage.getLocalDirectory();
+			fileRevisited.append("www.youku.com_Revisit.txt");
+			var dataRevisited = LocalStorage.readFile(fileRevisited);	
+			var linesRevisited = dataRevisited.split("\n");
+			
+			//alert(dataRevisited);
+			
 			for(var i = 0; i < doc.links.length; i++){
 				var flag = 0;
+				var flagRevisited = 0;
 				var link = doc.links[i].getAttribute("href") + " " + doc.links[i].innerHTML;
 				for(var j = 0; j < lines.length; j++){
 					
@@ -62,10 +71,21 @@ var LinkModifier ={
 						break;
 					}
 				}
+				for(var k=0; k<linesRevisited.length; k++){
+					if(link.indexOf(linesRevisited[k]) == 0 && linesRevisited[k].indexOf(link) == 0){
+						flagRevisited = 1;
+						break;
+					}
+				}
 				if(flag == 0){
 					doc.links[i].setAttribute("style",""+doc.links[i].getAttribute("style")+
 					";border:5px solid red;");
 				}
+				if(flagRevisited == 1){
+					doc.links[i].setAttribute("style",""+doc.links[i].getAttribute("style")+
+					";border:5px solid blue;");
+				}
+				
 				linkString += link + "\n";
 			}
 			var fileName=doc.location.hostname+".txt";
@@ -85,8 +105,15 @@ var LinkModifier ={
 	
 	clickLinks : function(event) {
 		var url = event.target.getAttribute("href");		
-		if(url.indexOf("http")==0){
-			alert(event.target + event.target.innerHTML+"\n"+"got you");
+		if(event.target.getAttribute("href")){
+			//alert(event.target + event.target.innerHTML+"\n"+"got you");
+			var file = LocalStorage.getLocalDirectory();
+			var fileName = "www.youku.com_Revisit.txt";
+			file.append(fileName);
+			var data = LocalStorage.readFile(file);
+			var newLink=event.target.getAttribute("href")+ " " + event.target.innerHTML+"\n";
+			data += newLink;
+			LocalStorage.createFile(fileName,data);
 		}
 	}
 }
