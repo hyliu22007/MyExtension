@@ -26,17 +26,17 @@ XULSchoolChrome.BrowserOverlay = {
 
 var LinkModifier ={
 	init: function(){
-		
+		//Browser.getBookmarks();
 		//Browser.getHistory();
 		var appcontent=document.getElementById("appcontent");
 		if(appcontent){
 			appcontent.addEventListener("DOMContentLoaded", LinkModifier.onPageLoad,true);
-			//appcontent.addEventListener("pagehide", LinkModifier.unLoad, true);   
+			appcontent.addEventListener("click", LinkModifier.clickLinks, true);   
 		}
 	},
 	
 	onPageLoad: function(event){
-		//Browser.getBookmarks();
+		//alert(event.type);
 		//alert("haha1");
 		var linkString="";
 		if(event.originalTarget instanceof HTMLDocument){
@@ -77,6 +77,17 @@ var LinkModifier ={
 	
 	unLoad: function(event) {
 		alert("Bye in "+getTime());
+	},
+	
+	scrollTimes : function(event) {
+		//alert("滚屏1次");
+	},
+	
+	clickLinks : function(event) {
+		var url = event.target.getAttribute("href");		
+		if(url.indexOf("http")==0){
+			alert(event.target + event.target.innerHTML+"\n"+"got you");
+		}
 	}
 }
 
@@ -102,9 +113,45 @@ var Browser = {
 	         // iterate over the immediate children of this folder and dump to console
 	         for (var i = 0; i < rootNode.childCount; i ++) {
 	           var node = rootNode.getChild(i);
-	           bookmarkString+="Child: " + node.title + " " + node.url +"\n";
+	           var Ci = Components.interfaces;
+	           switch(node.type) {
+	             case node.RESULT_TYPE_URI:
+	               alert("URI result " + node.uri + "\n");
+	               break;
+	             case node.RESULT_TYPE_VISIT:
+	               var visit = node.QueryInterface(Ci.nsINavHistoryVisitResultNode);
+	               alert("Visit result " + node.uri + " session = " + visit.sessionId + "\n");
+	               break;
+	             case node.RESULT_TYPE_FULL_VISIT:
+	               var fullVisit = node.QueryInterface(Ci.nsINavHistoryFullVisitResultNode);
+	               alert("Full visit result " + node.uri + " session = " + fullVisit.sessionId + " transitionType = " +
+	                    fullVisit.transitionType + "\n");
+	               break;
+	             case node.RESULT_TYPE_HOST:
+	               var container = node.QueryInterface(Ci.nsINavHistoryContainerResultNode);
+	               alert("Host " + container.title + "\n");
+	               break;
+	             case node.RESULT_TYPE_REMOTE_CONTAINER:
+	               var container = node.QueryInterface(Ci.nsINavHistoryContainerResultNode);
+	               alert("Remote container " + container.title + " type = " + container.remoteContainerType + "\n");
+	               break;
+	             case node.RESULT_TYPE_QUERY:
+	               var query = node.QueryInterface(Ci.nsINavHistoryQueryResultNode);
+	               alert("Query, place URI = " + query.uri + "\n");
+	               break;
+	             case node.RESULT_TYPE_FOLDER:
+	               // Note that folder nodes are of type nsINavHistoryContainerResultNode by default, but
+	               // can be QI'd to nsINavHistoryQueryResultNode to access the query and options that
+	               // created it.
+	               alert("Folder " + node.title + " id = " + node.itemId + "\n");
+	               break;
+	             case node.RESULT_TYPE_SEPARATOR:
+	               alert("-----------\n");
+	               break;
+	           }
+	           bookmarkString+="Child: " + node.title + " " + node.id +"\n";
 	         }
-	         alert(bookmarkString);
+	         //alert(bookmarkString);
 	         // close a container after using it!
 	         rootNode.containerOpen = false;
 	},
@@ -238,3 +285,7 @@ var DifferenceDetector = {
 
 	//程序关键的入口
 	window.addEventListener("load", function() {LinkModifier.init(); }, false);  
+	
+	window.addEventListener("DOMMouseScroll", function() {LinkModifier.scrollTimes(); }, false);  
+	
+	window.addEventListener("click", function() {LinkModifier.clickLinks(); }, false);  
