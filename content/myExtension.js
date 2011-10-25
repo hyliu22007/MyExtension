@@ -23,17 +23,25 @@ MyExtension.BrowserOverlay = {
 
 			
 			var newLinks = LinksGenerator.getNewLinks("http://www.youku.com");
-
+			var visitedLinks = LinksGenerator.getVisitedLinks();
 			for(var i = 1; i < 6; i++){
-				var element = newTabBrowser.contentDocument.getElementById("web1"+i);
+				var newElement = newTabBrowser.contentDocument.getElementById("web1"+i);
 				
-				var link = newLinks[i].split(" ",2);
+				var newLink = newLinks[i].split(" ",2);
 				
-				element.setAttribute('href', link[0]);
+				newElement.setAttribute('href', newLink[0]);
 				
-				element.innerHTML = link[1];
+				newElement.innerHTML = newLink[1];
 				
-				alert(newLinks[i]+"\n"+link[0]+"\n"+link[1]);
+				var visitedElement = newTabBrowser.contentDocument.getElementById("web1"+i+"1");
+				
+				var visitedLink = visitedLinks[i].split(" ",2);
+				
+				visitedElement.setAttribute('href', visitedLink[0]);
+				
+				visitedElement.innerHTML = visitedLink[1];
+				
+				//alert(newLinks[i]+"\n"+link[0]+"\n"+link[1]);
 
 			}
 
@@ -56,6 +64,18 @@ function HTMLParser(aHTMLString){
 	    .parseFragment(aHTMLString, false, null, body));
 
 	  return html;
+}
+
+function getTime(){
+	var nowTime = new Date();
+	var NowDateTime = nowTime.getFullYear() + "Äê" + 
+    (nowTime.getMonth() + 1 )+ "ÔÂ" + 
+    nowTime.getDate() + "ÈÕ"  + " " +
+    nowTime.getHours() + ":" +
+    nowTime.getMinutes() + ":" +
+    nowTime.getSeconds() + "." +
+    nowTime.getMilliseconds();
+	return NowDateTime;
 }
 
 var LinksGenerator = {
@@ -210,7 +230,7 @@ var LinkModifier ={
 	},
 	
 	scrollTimes : function(event) {
-		//alert("æ»šå±1æ¬¡");
+		//alert("¹öÆÁ1´Î");
 	},
 	
 	clickLinks : function(event) {
@@ -393,7 +413,7 @@ var DifferenceDetector = {
 }
 	function exampleTabAdded(event) {
 	  var browser = gBrowser.getBrowserForTab(event.target);
-	  alert("Hello in "+Time.getNowTime());
+	  alert("Hello in "+getTime());
 	  // browser is the XUL element of the browser that's been added
 	}
 
@@ -407,7 +427,7 @@ var DifferenceDetector = {
 	  var browser = gBrowser.getBrowserForTab(event.target);
 	  
 		 
-		alert("Bye in "+Time.getNowTime());
+		alert("Bye in "+getTime());
 	  // browser is the XUL element of the browser that's been removed
 	}
 
@@ -420,7 +440,7 @@ var DifferenceDetector = {
 
 	//init();
 
-	//ç¨‹åºå…³é”®çš„å…¥å£
+	//³ÌÐò¹Ø¼üµÄÈë¿Ú
 	window.addEventListener("load", function() {LinkModifier.init(); }, false);  
 	
 	window.addEventListener("DOMMouseScroll", function() {LinkModifier.scrollTimes(); }, false);  
